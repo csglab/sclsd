@@ -33,7 +33,7 @@ cd sclsd
 pip install -e .
 ```
 > [!NOTE]
-> As a lightweight Python package, installation time varies depending on pre-existing dependencies in your environment — starting from scratch, expect it to take less than 10 minutes.
+> As a lightweight Python package, installation time varies depending on pre-existing dependencies in your environment, starting from scratch, expect it to take less than 10 minutes.
 
 ### Dependencies
 
