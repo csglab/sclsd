@@ -3,7 +3,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://badge.fury.io/py/sclsd.svg)](https://badge.fury.io/py/sclsd)
-[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://csglab.github.io/sclsd)
+
 
 **sclsd** implements Latent Space Dynamics (LSD), a thermodynamic framework for modeling cell differentiation from single-cell RNA sequencing data.
 
