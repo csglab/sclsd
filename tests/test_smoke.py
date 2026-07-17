@@ -78,5 +78,20 @@ def test_toy_training_smoke():
     assert result.obsm["X_cell_state"].shape == (adata.n_obs, cfg.model.z_dim)
     assert result.obsm["X_diff_state"].shape == (adata.n_obs, cfg.model.B_dim)
     assert result.obsp["transitions"].shape == (adata.n_obs, adata.n_obs)
+    assert sp.isspmatrix_csr(result.obsp["transitions"])
+
+    potential = result.obs["potential"].to_numpy().astype(float)
+    binary_connectivity = (adata.obsp["connectivities"].toarray() > 0).astype(float)
+    energy_diff = potential[None, :] - potential[:, None]
+    expected_weights = np.exp(-energy_diff) * binary_connectivity
+    expected_transitions = expected_weights / (
+        expected_weights.sum(axis=1, keepdims=True) + 1e-12
+    )
+    np.testing.assert_allclose(
+        result.obsp["transitions"].toarray(),
+        expected_transitions,
+        rtol=1e-12,
+        atol=1e-14,
+    )
     assert np.isfinite(result.obs["potential"]).all()
     assert np.isfinite(result.obs["entropy"]).all()
