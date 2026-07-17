@@ -17,8 +17,9 @@ Date: 2026-07-17
 
 The legacy implementations were copied and executed before production-source edits.
 The source hashes, dataset hash, environment, configuration, and output hashes are in
-`comment7_baseline_metadata.json`. The frozen Dentate Gyrus graph and effective outputs
-are stored in `tests/fixtures/dentate_gyrus_comment7_baseline.npz`.
+[`comment7_baseline_metadata.json`](comment7_baseline_metadata.json). The frozen
+Dentate Gyrus graph and effective outputs are stored in
+[`tests/fixtures/dentate_gyrus_comment7_baseline.npz`](../../tests/fixtures/dentate_gyrus_comment7_baseline.npz).
 
 ## Old-versus-new results
 
