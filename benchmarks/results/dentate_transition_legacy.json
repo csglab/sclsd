@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "transition",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.08998316433280706,
+      "cpu_seconds": 0.09000330199999951,
+      "rss_before_bytes": 581414912,
+      "peak_rss_bytes": 775143424,
+      "peak_rss_delta_bytes": 193728512,
+      "output_type": "float64",
+      "output_nnz": 53472,
+      "output_hash": "d3a13e20b0bcc61d7c6fecf02ac2ec7e3269122541948eb27f968f968d0be343"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "transition",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.08766104187816381,
+      "cpu_seconds": 0.0876874179999998,
+      "rss_before_bytes": 579649536,
+      "peak_rss_bytes": 773632000,
+      "peak_rss_delta_bytes": 193982464,
+      "output_type": "float64",
+      "output_nnz": 53472,
+      "output_hash": "d3a13e20b0bcc61d7c6fecf02ac2ec7e3269122541948eb27f968f968d0be343"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "transition",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.08808719646185637,
+      "cpu_seconds": 0.0881090380000007,
+      "rss_before_bytes": 579612672,
+      "peak_rss_bytes": 773570560,
+      "peak_rss_delta_bytes": 193957888,
+      "output_type": "float64",
+      "output_nnz": 53472,
+      "output_hash": "d3a13e20b0bcc61d7c6fecf02ac2ec7e3269122541948eb27f968f968d0be343"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "transition",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.08749268297106028,
+      "cpu_seconds": 0.0875133090000002,
+      "rss_before_bytes": 580128768,
+      "peak_rss_bytes": 774180864,
+      "peak_rss_delta_bytes": 194052096,
+      "output_type": "float64",
+      "output_nnz": 53472,
+      "output_hash": "d3a13e20b0bcc61d7c6fecf02ac2ec7e3269122541948eb27f968f968d0be343"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "transition",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.08524742163717747,
+      "cpu_seconds": 0.08527022899999892,
+      "rss_before_bytes": 581160960,
+      "peak_rss_bytes": 775069696,
+      "peak_rss_delta_bytes": 193908736,
+      "output_type": "float64",
+      "output_nnz": 53472,
+      "output_hash": "d3a13e20b0bcc61d7c6fecf02ac2ec7e3269122541948eb27f968f968d0be343"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 0.08766104187816381,
+      "min": 0.08524742163717747,
+      "max": 0.08998316433280706
+    },
+    "cpu_seconds": {
+      "median": 0.0876874179999998,
+      "min": 0.08527022899999892,
+      "max": 0.09000330199999951
+    },
+    "peak_rss_bytes": {
+      "median": 774180864.0,
+      "min": 773570560.0,
+      "max": 775143424.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 193957888.0,
+      "min": 193728512.0,
+      "max": 194052096.0
+    }
+  }
+}

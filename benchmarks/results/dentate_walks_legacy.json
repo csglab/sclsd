@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "walks",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.12815706990659237,
+      "cpu_seconds": 2.428806731,
+      "rss_before_bytes": 618860544,
+      "peak_rss_bytes": 690286592,
+      "peak_rss_delta_bytes": 71426048,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "d9b966cff9677a9001fce384ec4240cbcd8c43d590fceb105e96d508684eb968"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "walks",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.17988937068730593,
+      "cpu_seconds": 3.9783924080000013,
+      "rss_before_bytes": 617476096,
+      "peak_rss_bytes": 689393664,
+      "peak_rss_delta_bytes": 71917568,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "d9b966cff9677a9001fce384ec4240cbcd8c43d590fceb105e96d508684eb968"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "walks",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.15656772535294294,
+      "cpu_seconds": 3.3273125460000017,
+      "rss_before_bytes": 617881600,
+      "peak_rss_bytes": 689819648,
+      "peak_rss_delta_bytes": 71938048,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "d9b966cff9677a9001fce384ec4240cbcd8c43d590fceb105e96d508684eb968"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "walks",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.15714468900114298,
+      "cpu_seconds": 3.0777459679999986,
+      "rss_before_bytes": 617635840,
+      "peak_rss_bytes": 689332224,
+      "peak_rss_delta_bytes": 71696384,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "d9b966cff9677a9001fce384ec4240cbcd8c43d590fceb105e96d508684eb968"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "legacy",
+      "operation": "walks",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.30562551971524954,
+      "cpu_seconds": 6.710330459999998,
+      "rss_before_bytes": 618528768,
+      "peak_rss_bytes": 710868992,
+      "peak_rss_delta_bytes": 92340224,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "d9b966cff9677a9001fce384ec4240cbcd8c43d590fceb105e96d508684eb968"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 0.15714468900114298,
+      "min": 0.12815706990659237,
+      "max": 0.30562551971524954
+    },
+    "cpu_seconds": {
+      "median": 3.3273125460000017,
+      "min": 2.428806731,
+      "max": 6.710330459999998
+    },
+    "peak_rss_bytes": {
+      "median": 689819648.0,
+      "min": 689332224.0,
+      "max": 710868992.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 71917568.0,
+      "min": 71426048.0,
+      "max": 92340224.0
+    }
+  }
+}

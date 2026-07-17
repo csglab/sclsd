@@ -1,0 +1,45 @@
+{
+  "created_before_source_update": true,
+  "python": "3.10.12",
+  "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pandas": "2.3.3",
+    "anndata": "0.11.4",
+    "scanpy": "1.11.5",
+    "torch": "2.4.1",
+    "pyro-ppl": "1.9.1"
+  },
+  "source_sha256": {
+    "prior.py": "ad4375a7e39f08a5e5afc2947e0a8b75234de4b841c01144b5afd2ccdadc0d52",
+    "trainer.py": "5f58825cfca289a923636aa4938b1f00f87b5026df585b6364d556701e0b5029",
+    "walks.py": "fdf18ffd82f98d57d7ff9dac4d59ae2b1e6b8901fd3e2aa09783e0cb0f6c3cb8"
+  },
+  "dataset": {
+    "path": "../sclsd-manuscript/Zenodo/DentateGyrus/preprocessed_adata.h5ad",
+    "sha256": "6a8d2cce85e6e746d877af091b0175ec6b0a36440e9e1cf3ef55541efb6876c5",
+    "n_obs": 2460,
+    "n_vars": 1500,
+    "connectivity_nnz": 53472,
+    "cluster_count": 6
+  },
+  "configuration": {
+    "walk_count": 2048,
+    "path_len": 12,
+    "random_state": 42,
+    "transition_beta": 50
+  },
+  "legacy_outputs": {
+    "raw_phylogeny_mask_nnz": 3128837,
+    "effective_phylogeny_nnz": 48504,
+    "effective_phylogeny_sha256": "b5e83d6c5546004fc3ef83034052b93d332b4f1b0e1364de39cb9f7742e7aa19",
+    "transition_nnz": 53472,
+    "transition_sha256": "8a157a181ef8e36d911679b452b0694ccbd84093448b480b7265e7ca57e6025d",
+    "walks_sha256": "d9b966cff9677a9001fce384ec4240cbcd8c43d590fceb105e96d508684eb968",
+    "walks_dtype": "int32",
+    "walks_shape": [
+      2048,
+      12
+    ]
+  }
+}

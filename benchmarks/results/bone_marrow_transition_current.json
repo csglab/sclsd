@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "transition",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.00529903918504715,
+      "cpu_seconds": 0.005321454000000614,
+      "rss_before_bytes": 631111680,
+      "peak_rss_bytes": 637964288,
+      "peak_rss_delta_bytes": 6852608,
+      "output_type": "csr_matrix",
+      "output_nnz": 114718,
+      "output_hash": "60d1e803a3eb53d35d023000dcea0d3a819d8802a37e159d6c27740d6baead03"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "transition",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.005373898893594742,
+      "cpu_seconds": 0.005397865999999141,
+      "rss_before_bytes": 631820288,
+      "peak_rss_bytes": 638971904,
+      "peak_rss_delta_bytes": 7151616,
+      "output_type": "csr_matrix",
+      "output_nnz": 114718,
+      "output_hash": "60d1e803a3eb53d35d023000dcea0d3a819d8802a37e159d6c27740d6baead03"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "transition",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.005222865380346775,
+      "cpu_seconds": 0.005247235999998878,
+      "rss_before_bytes": 631173120,
+      "peak_rss_bytes": 638214144,
+      "peak_rss_delta_bytes": 7041024,
+      "output_type": "csr_matrix",
+      "output_nnz": 114718,
+      "output_hash": "60d1e803a3eb53d35d023000dcea0d3a819d8802a37e159d6c27740d6baead03"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "transition",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.005188260227441788,
+      "cpu_seconds": 0.005208514999999636,
+      "rss_before_bytes": 631054336,
+      "peak_rss_bytes": 638095360,
+      "peak_rss_delta_bytes": 7041024,
+      "output_type": "csr_matrix",
+      "output_nnz": 114718,
+      "output_hash": "60d1e803a3eb53d35d023000dcea0d3a819d8802a37e159d6c27740d6baead03"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "transition",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.005155312828719616,
+      "cpu_seconds": 0.0051792279999993696,
+      "rss_before_bytes": 631468032,
+      "peak_rss_bytes": 638566400,
+      "peak_rss_delta_bytes": 7098368,
+      "output_type": "csr_matrix",
+      "output_nnz": 114718,
+      "output_hash": "60d1e803a3eb53d35d023000dcea0d3a819d8802a37e159d6c27740d6baead03"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 0.005222865380346775,
+      "min": 0.005155312828719616,
+      "max": 0.005373898893594742
+    },
+    "cpu_seconds": {
+      "median": 0.005247235999998878,
+      "min": 0.0051792279999993696,
+      "max": 0.005397865999999141
+    },
+    "peak_rss_bytes": {
+      "median": 638214144.0,
+      "min": 637964288.0,
+      "max": 638971904.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 7041024.0,
+      "min": 6852608.0,
+      "max": 7151616.0
+    }
+  }
+}

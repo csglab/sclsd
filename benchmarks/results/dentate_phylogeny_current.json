@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "dentate",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.01972712203860283,
+      "cpu_seconds": 0.019749906999999567,
+      "rss_before_bytes": 614023168,
+      "peak_rss_bytes": 617267200,
+      "peak_rss_delta_bytes": 3244032,
+      "output_type": "csr_matrix",
+      "output_nnz": 48504,
+      "output_hash": "b5e83d6c5546004fc3ef83034052b93d332b4f1b0e1364de39cb9f7742e7aa19"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.019518598914146423,
+      "cpu_seconds": 0.019537773999999786,
+      "rss_before_bytes": 613101568,
+      "peak_rss_bytes": 616140800,
+      "peak_rss_delta_bytes": 3039232,
+      "output_type": "csr_matrix",
+      "output_nnz": 48504,
+      "output_hash": "b5e83d6c5546004fc3ef83034052b93d332b4f1b0e1364de39cb9f7742e7aa19"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.020828742533922195,
+      "cpu_seconds": 0.02085322999999839,
+      "rss_before_bytes": 612646912,
+      "peak_rss_bytes": 616173568,
+      "peak_rss_delta_bytes": 3526656,
+      "output_type": "csr_matrix",
+      "output_nnz": 48504,
+      "output_hash": "b5e83d6c5546004fc3ef83034052b93d332b4f1b0e1364de39cb9f7742e7aa19"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.019840167835354805,
+      "cpu_seconds": 0.019868595999998462,
+      "rss_before_bytes": 613777408,
+      "peak_rss_bytes": 617062400,
+      "peak_rss_delta_bytes": 3284992,
+      "output_type": "csr_matrix",
+      "output_nnz": 48504,
+      "output_hash": "b5e83d6c5546004fc3ef83034052b93d332b4f1b0e1364de39cb9f7742e7aa19"
+    },
+    {
+      "dataset": "dentate",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 2460,
+      "n_vars": 1500,
+      "connectivity_nnz": 53472,
+      "wall_seconds": 0.019691831432282925,
+      "cpu_seconds": 0.019714757000000915,
+      "rss_before_bytes": 613777408,
+      "peak_rss_bytes": 617308160,
+      "peak_rss_delta_bytes": 3530752,
+      "output_type": "csr_matrix",
+      "output_nnz": 48504,
+      "output_hash": "b5e83d6c5546004fc3ef83034052b93d332b4f1b0e1364de39cb9f7742e7aa19"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 0.01972712203860283,
+      "min": 0.019518598914146423,
+      "max": 0.020828742533922195
+    },
+    "cpu_seconds": {
+      "median": 0.019749906999999567,
+      "min": 0.019537773999999786,
+      "max": 0.02085322999999839
+    },
+    "peak_rss_bytes": {
+      "median": 617062400.0,
+      "min": 616140800.0,
+      "max": 617308160.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 3284992.0,
+      "min": 3039232.0,
+      "max": 3530752.0
+    }
+  }
+}
