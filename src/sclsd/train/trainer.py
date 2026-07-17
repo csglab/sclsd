@@ -87,6 +87,25 @@ class LSD:
         lib_size_key: str = "librarysize",
         raw_count_key: str = "raw",
     ):
+        missing_fields = []
+        if adata.X is None:
+            missing_fields.append(
+                "adata.X is missing; provide log-normalized expression data."
+            )
+        if raw_count_key not in adata.layers:
+            missing_fields.append(
+                f"adata.layers[{raw_count_key!r}] is missing; "
+                "provide the raw count matrix."
+            )
+        if lib_size_key not in adata.obs:
+            missing_fields.append(
+                f"adata.obs[{lib_size_key!r}] is missing; "
+                "provide one library-size value per cell."
+            )
+        if missing_fields:
+            details = "\n- ".join(missing_fields)
+            raise ValueError(f"Invalid AnnData input for LSD:\n- {details}")
+
         self.config = config if isinstance(config, LSDConfig) else LSDConfig()
         model_cfg = self.config.model
         walk_cfg = replace(self.config.walks)
@@ -651,6 +670,12 @@ class LSD:
             self.P = torch.from_numpy(prior_transition).float()
             print("[LSD] Prior transition matrix set from user input.")
             return
+
+        if prior_time_key is not None and prior_time_key not in self.adata.obs:
+            raise KeyError(
+                f"prior_time_key={prior_time_key!r} was not found in adata.obs. "
+                "Add the pseudotime column or pass prior_transition instead."
+            )
 
         if self.phylogeny is not None:
             A = self._create_phylogeny_matrix()
