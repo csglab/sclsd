@@ -6,11 +6,9 @@ cell-cell transition graph for training the LSD model.
 
 from __future__ import annotations
 
-from typing import Optional
-
 import numpy as np
-import torch
 import scipy.sparse as sp
+import torch
 
 
 def prepare_transition_matrix_gpu(
@@ -78,6 +76,71 @@ def random_walks_gpu(
         current_states = next_states
 
     return walks
+
+
+def random_walks_sparse(
+    transition_matrix: sp.spmatrix,
+    n_steps: int,
+    n_trajectories: int,
+    random_state: int = 42,
+) -> torch.Tensor:
+    """Generate reproducible random walks directly from a sparse matrix.
+
+    Sampling is performed on CPU over each cell's nonzero transition edges, so
+    the full cell-by-cell transition matrix is never copied to GPU memory.
+
+    Parameters
+    ----------
+    transition_matrix : scipy.sparse matrix
+        Row-wise transition probabilities.
+    n_steps : int
+        Number of states in each walk.
+    n_trajectories : int
+        Number of walks to generate.
+    random_state : int
+        Seed for the NumPy random-number generator.
+
+    Returns
+    -------
+    torch.Tensor
+        CPU tensor of shape ``(n_trajectories, n_steps)`` and dtype int32.
+    """
+    transition = sp.csr_matrix(transition_matrix, dtype=float)
+    transition.sum_duplicates()
+    transition.eliminate_zeros()
+    transition.sort_indices()
+
+    if transition.shape[0] != transition.shape[1]:
+        raise ValueError("Transition matrix must be square.")
+    if np.any(~np.isfinite(transition.data)) or np.any(transition.data < 0):
+        raise ValueError("Transition probabilities must be finite and non-negative.")
+
+    row_sums = np.asarray(transition.sum(axis=1)).ravel()
+    empty_rows = np.flatnonzero(row_sums <= 0)
+    if len(empty_rows) > 0:
+        preview = ", ".join(map(str, empty_rows[:5]))
+        raise ValueError(
+            "Transition matrix contains rows with no outgoing transitions "
+            f"(for example: {preview})."
+        )
+
+    row_indices = np.repeat(np.arange(transition.shape[0]), np.diff(transition.indptr))
+    transition.data = transition.data / row_sums[row_indices]
+
+    rng = np.random.default_rng(random_state)
+    walks = np.empty((n_trajectories, n_steps), dtype=np.int32)
+    walks[:, 0] = rng.integers(0, transition.shape[0], size=n_trajectories)
+
+    for step in range(1, n_steps):
+        for walk_idx in range(n_trajectories):
+            current = walks[walk_idx, step - 1]
+            start = transition.indptr[current]
+            end = transition.indptr[current + 1]
+            neighbors = transition.indices[start:end]
+            probabilities = transition.data[start:end]
+            walks[walk_idx, step] = rng.choice(neighbors, p=probabilities)
+
+    return torch.from_numpy(walks)
 
 
 def prepare_walks(

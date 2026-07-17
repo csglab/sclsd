@@ -358,28 +358,37 @@ def _create_phylogeny_matrix(
     phylogeny: Dict[str, List[str]],
     cluster_key: str = "clusters",
 ) -> sp.csr_matrix:
-    """Create cell-cell matrix based on phylogeny relationships."""
+    """Create a phylogeny mask over existing connectivity-graph edges."""
     clusters = adata.obs[cluster_key].unique().tolist()
-    cell_to_cluster = dict(zip(adata.obs_names, adata.obs[cluster_key]))
+    cell_clusters = adata.obs[cluster_key].to_numpy()
 
     all_descendants = {}
     for cluster in clusters:
         all_descendants[cluster] = _get_all_descendants(cluster, phylogeny)
 
-    n_cells = adata.shape[0]
-    phylo_matrix = np.zeros((n_cells, n_cells))
+    connectivity = sp.csr_matrix(adata.obsp["connectivities"])
+    connectivity.sum_duplicates()
+    connectivity.eliminate_zeros()
+    edges = connectivity.tocoo()
 
-    for i, cell_i in enumerate(adata.obs_names):
-        cluster_i = cell_to_cluster[cell_i]
-        for j, cell_j in enumerate(adata.obs_names):
-            cluster_j = cell_to_cluster[cell_j]
-
-            if cluster_i == cluster_j:
-                phylo_matrix[i, j] = 1
-            elif cluster_j in all_descendants.get(cluster_i, set()):
-                phylo_matrix[i, j] = 1
-
-    return sp.csr_matrix(phylo_matrix)
+    keep = np.fromiter(
+        (
+            cell_clusters[row] == cell_clusters[col]
+            or cell_clusters[col] in all_descendants.get(cell_clusters[row], set())
+            for row, col in zip(edges.row, edges.col)
+        ),
+        dtype=bool,
+        count=edges.nnz,
+    )
+    mask = sp.csr_matrix(
+        (
+            np.ones(np.count_nonzero(keep), dtype=float),
+            (edges.row[keep], edges.col[keep]),
+        ),
+        shape=connectivity.shape,
+    )
+    mask.sort_indices()
+    return mask
 
 
 def _get_tree_branches(
