@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.04323896486312151,
+      "cpu_seconds": 0.04325768200000013,
+      "rss_before_bytes": 631713792,
+      "peak_rss_bytes": 637632512,
+      "peak_rss_delta_bytes": 5918720,
+      "output_type": "csr_matrix",
+      "output_nnz": 94899,
+      "output_hash": "1b70d2717e5c3a44a7e9eb32e5f6e8138a661a0f5c8ab6feb07166eb684bfadd"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.04605204053223133,
+      "cpu_seconds": 0.046071685999999445,
+      "rss_before_bytes": 631169024,
+      "peak_rss_bytes": 637386752,
+      "peak_rss_delta_bytes": 6217728,
+      "output_type": "csr_matrix",
+      "output_nnz": 94899,
+      "output_hash": "1b70d2717e5c3a44a7e9eb32e5f6e8138a661a0f5c8ab6feb07166eb684bfadd"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.04360661655664444,
+      "cpu_seconds": 0.04363062300000031,
+      "rss_before_bytes": 631205888,
+      "peak_rss_bytes": 637427712,
+      "peak_rss_delta_bytes": 6221824,
+      "output_type": "csr_matrix",
+      "output_nnz": 94899,
+      "output_hash": "1b70d2717e5c3a44a7e9eb32e5f6e8138a661a0f5c8ab6feb07166eb684bfadd"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.04263310041278601,
+      "cpu_seconds": 0.04265175399999954,
+      "rss_before_bytes": 631656448,
+      "peak_rss_bytes": 637726720,
+      "peak_rss_delta_bytes": 6070272,
+      "output_type": "csr_matrix",
+      "output_nnz": 94899,
+      "output_hash": "1b70d2717e5c3a44a7e9eb32e5f6e8138a661a0f5c8ab6feb07166eb684bfadd"
+    },
+    {
+      "dataset": "bone_marrow",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 5292,
+      "n_vars": 2000,
+      "connectivity_nnz": 114718,
+      "wall_seconds": 0.04396524466574192,
+      "cpu_seconds": 0.04398627700000013,
+      "rss_before_bytes": 631205888,
+      "peak_rss_bytes": 637485056,
+      "peak_rss_delta_bytes": 6279168,
+      "output_type": "csr_matrix",
+      "output_nnz": 94899,
+      "output_hash": "1b70d2717e5c3a44a7e9eb32e5f6e8138a661a0f5c8ab6feb07166eb684bfadd"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 0.04360661655664444,
+      "min": 0.04263310041278601,
+      "max": 0.04605204053223133
+    },
+    "cpu_seconds": {
+      "median": 0.04363062300000031,
+      "min": 0.04265175399999954,
+      "max": 0.046071685999999445
+    },
+    "peak_rss_bytes": {
+      "median": 637485056.0,
+      "min": 637386752.0,
+      "max": 637726720.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 6217728.0,
+      "min": 5918720.0,
+      "max": 6279168.0
+    }
+  }
+}

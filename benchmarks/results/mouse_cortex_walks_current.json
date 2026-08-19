@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "walks",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 2.8961584316566586,
+      "cpu_seconds": 2.8959552239999997,
+      "rss_before_bytes": 713158656,
+      "peak_rss_bytes": 727347200,
+      "peak_rss_delta_bytes": 14188544,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "1abc28636c709f357c1b060ef908c4dccc10aad80da80bfea9f16cd713dc035b"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "walks",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 2.8579091550782323,
+      "cpu_seconds": 2.857932776,
+      "rss_before_bytes": 704888832,
+      "peak_rss_bytes": 724914176,
+      "peak_rss_delta_bytes": 20025344,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "1abc28636c709f357c1b060ef908c4dccc10aad80da80bfea9f16cd713dc035b"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "walks",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 2.8777672694996,
+      "cpu_seconds": 2.877525584999999,
+      "rss_before_bytes": 704634880,
+      "peak_rss_bytes": 728133632,
+      "peak_rss_delta_bytes": 23498752,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "1abc28636c709f357c1b060ef908c4dccc10aad80da80bfea9f16cd713dc035b"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "walks",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 2.8843463687226176,
+      "cpu_seconds": 2.8843807860000013,
+      "rss_before_bytes": 708177920,
+      "peak_rss_bytes": 728420352,
+      "peak_rss_delta_bytes": 20242432,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "1abc28636c709f357c1b060ef908c4dccc10aad80da80bfea9f16cd713dc035b"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "walks",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 2.8805352691560984,
+      "cpu_seconds": 2.8804612400000007,
+      "rss_before_bytes": 712642560,
+      "peak_rss_bytes": 726831104,
+      "peak_rss_delta_bytes": 14188544,
+      "output_type": "torch.int32",
+      "output_nnz": null,
+      "output_hash": "1abc28636c709f357c1b060ef908c4dccc10aad80da80bfea9f16cd713dc035b"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 2.8805352691560984,
+      "min": 2.8579091550782323,
+      "max": 2.8961584316566586
+    },
+    "cpu_seconds": {
+      "median": 2.8804612400000007,
+      "min": 2.857932776,
+      "max": 2.8959552239999997
+    },
+    "peak_rss_bytes": {
+      "median": 727347200.0,
+      "min": 724914176.0,
+      "max": 728420352.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 20025344.0,
+      "min": 14188544.0,
+      "max": 23498752.0
+    }
+  }
+}

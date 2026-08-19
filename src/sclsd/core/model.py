@@ -316,15 +316,21 @@ class LSDModel(nn.Module):
             z_loc, z_scale = self.B_decoder(B)
 
             # Timepoint lattice for variance parameter cell state
-            t = torch.exp(torch.linspace(0, 1, self.path_len).view(1, self.path_len, 1))
+            t = torch.exp(
+                torch.linspace(
+                    0,
+                    1,
+                    self.path_len,
+                    device=z_scale.device,
+                    dtype=z_scale.dtype,
+                ).view(1, self.path_len, 1)
+            )
             t = t.expand(
                 int(len(x) / self.path_len), self.path_len, self.z_dim
             ).contiguous()
             z_scale = z_scale.reshape(
                 int(len(x) / self.path_len), self.path_len, self.z_dim
             )
-            if torch.cuda.is_available():
-                t = t.to(self.device)
             z_scale = (z_scale * t).reshape(-1, self.z_dim)
 
             # 4. Sample z
@@ -399,9 +405,13 @@ class LSDModel(nn.Module):
             pyro.factor("V_l2_reg", self.V_coeff * V.pow(2).max(), has_rsample=True)
 
             # Timepoint lattice for neural ODE
-            t = torch.linspace(0, 1, self.path_len)
-            if torch.cuda.is_available():
-                t = t.to(self.device)
+            t = torch.linspace(
+                0,
+                1,
+                self.path_len,
+                device=z_loc.device,
+                dtype=z_loc.dtype,
+            )
             z_t = z_loc.reshape(
                 int(len(x) / self.path_len), self.path_len, self.z_dim
             )
@@ -424,12 +434,18 @@ class LSDModel(nn.Module):
             B_scale = B_scale.reshape(
                 int(len(x) / self.path_len), self.path_len, self.B_dim
             )
-            t = torch.exp(torch.linspace(0, 1, self.path_len).view(1, self.path_len, 1))
+            t = torch.exp(
+                torch.linspace(
+                    0,
+                    1,
+                    self.path_len,
+                    device=B_scale.device,
+                    dtype=B_scale.dtype,
+                ).view(1, self.path_len, 1)
+            )
             t = t.expand(
                 int(len(x) / self.path_len), self.path_len, self.B_dim
             ).contiguous()
-            if torch.cuda.is_available():
-                t = t.to(self.device)
             B_scale = (B_scale * t).reshape(-1, self.B_dim)
 
             # 4. Sample B with annealing factor

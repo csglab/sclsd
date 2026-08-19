@@ -1,0 +1,108 @@
+{
+  "python": "3.10.12",
+  "repeats": 5,
+  "records": [
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 0.07680433057248592,
+      "cpu_seconds": 0.07682317599999955,
+      "rss_before_bytes": 701759488,
+      "peak_rss_bytes": 709160960,
+      "peak_rss_delta_bytes": 7401472,
+      "output_type": "csr_matrix",
+      "output_nnz": 240930,
+      "output_hash": "90da8200b99af5fe41ac530946c6b45a4a0342df23d1454e9c78ebdde9a315c0"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 0.07630886416882277,
+      "cpu_seconds": 0.07633075400000067,
+      "rss_before_bytes": 701943808,
+      "peak_rss_bytes": 709578752,
+      "peak_rss_delta_bytes": 7634944,
+      "output_type": "csr_matrix",
+      "output_nnz": 240930,
+      "output_hash": "90da8200b99af5fe41ac530946c6b45a4a0342df23d1454e9c78ebdde9a315c0"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 0.07531259302049875,
+      "cpu_seconds": 0.0753304289999992,
+      "rss_before_bytes": 702316544,
+      "peak_rss_bytes": 706838528,
+      "peak_rss_delta_bytes": 4521984,
+      "output_type": "csr_matrix",
+      "output_nnz": 240930,
+      "output_hash": "90da8200b99af5fe41ac530946c6b45a4a0342df23d1454e9c78ebdde9a315c0"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 0.0774783305823803,
+      "cpu_seconds": 0.07750002000000045,
+      "rss_before_bytes": 702865408,
+      "peak_rss_bytes": 707145728,
+      "peak_rss_delta_bytes": 4280320,
+      "output_type": "csr_matrix",
+      "output_nnz": 240930,
+      "output_hash": "90da8200b99af5fe41ac530946c6b45a4a0342df23d1454e9c78ebdde9a315c0"
+    },
+    {
+      "dataset": "mouse_cortex",
+      "implementation": "current",
+      "operation": "phylogeny",
+      "n_obs": 12814,
+      "n_vars": 1062,
+      "connectivity_nnz": 250236,
+      "wall_seconds": 0.07780855428427458,
+      "cpu_seconds": 0.07782924500000021,
+      "rss_before_bytes": 702197760,
+      "peak_rss_bytes": 711782400,
+      "peak_rss_delta_bytes": 9584640,
+      "output_type": "csr_matrix",
+      "output_nnz": 240930,
+      "output_hash": "90da8200b99af5fe41ac530946c6b45a4a0342df23d1454e9c78ebdde9a315c0"
+    }
+  ],
+  "summary": {
+    "wall_seconds": {
+      "median": 0.07680433057248592,
+      "min": 0.07531259302049875,
+      "max": 0.07780855428427458
+    },
+    "cpu_seconds": {
+      "median": 0.07682317599999955,
+      "min": 0.0753304289999992,
+      "max": 0.07782924500000021
+    },
+    "peak_rss_bytes": {
+      "median": 709160960.0,
+      "min": 706838528.0,
+      "max": 711782400.0
+    },
+    "peak_rss_delta_bytes": {
+      "median": 7401472.0,
+      "min": 4280320.0,
+      "max": 9584640.0
+    }
+  }
+}

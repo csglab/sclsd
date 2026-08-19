@@ -26,6 +26,10 @@ from pyro.infer import SVI, TraceEnum_ELBO
 
 from sclsd.core.config import LSDConfig, WalkConfig
 from sclsd.core.model import LSDModel
+from sclsd.preprocessing.prior import (
+    _create_phylogeny_matrix as create_sparse_phylogeny_matrix,
+)
+from sclsd.train.walks import random_walks_sparse
 from sclsd.utils.seed import set_all_seeds, clear_pyro_state, enable_pyro_validation
 
 try:
@@ -63,8 +67,8 @@ class LSD:
         The single-cell data.
     walks : torch.Tensor
         Generated random walks for training.
-    P : torch.Tensor
-        Cell-cell transition probability matrix.
+    P : scipy.sparse.csr_matrix
+        Sparse cell-cell transition probability matrix used for random walks.
 
     Examples
     --------
@@ -87,6 +91,25 @@ class LSD:
         lib_size_key: str = "librarysize",
         raw_count_key: str = "raw",
     ):
+        missing_fields = []
+        if adata.X is None:
+            missing_fields.append(
+                "adata.X is missing; provide log-normalized expression data."
+            )
+        if raw_count_key not in adata.layers:
+            missing_fields.append(
+                f"adata.layers[{raw_count_key!r}] is missing; "
+                "provide the raw count matrix."
+            )
+        if lib_size_key not in adata.obs:
+            missing_fields.append(
+                f"adata.obs[{lib_size_key!r}] is missing; "
+                "provide one library-size value per cell."
+            )
+        if missing_fields:
+            details = "\n- ".join(missing_fields)
+            raise ValueError(f"Invalid AnnData input for LSD:\n- {details}")
+
         self.config = config if isinstance(config, LSDConfig) else LSDConfig()
         model_cfg = self.config.model
         walk_cfg = replace(self.config.walks)
@@ -500,32 +523,47 @@ class LSD:
     def calculate_transition_probs(
         self,
         potential: np.ndarray,
-        connectivity_matrix: np.ndarray,
+        connectivity_matrix: Union[np.ndarray, sp.spmatrix],
         beta: float = 1.0,
-    ) -> np.ndarray:
+    ) -> sp.csr_matrix:
         """Compute cell-cell transition probabilities using Boltzmann weights.
 
         Parameters
         ----------
         potential : np.ndarray
             Potential values of shape (n_cells,).
-        connectivity_matrix : np.ndarray
-            Binary connectivity matrix of shape (n_cells, n_cells).
+        connectivity_matrix : numpy.ndarray or scipy.sparse matrix
+            Connectivity matrix of shape (n_cells, n_cells).
         beta : float
             Boltzmann scaling factor.
 
         Returns
         -------
-        np.ndarray
-            Transition probability matrix, row-normalized.
+        scipy.sparse.csr_matrix
+            Sparse transition probability matrix, row-normalized.
         """
-        potential = potential.astype(float)
-        energy_diff = potential[None, :] - potential[:, None]
-        boltzmann_weights = np.exp(-beta * energy_diff)
-        boltzmann_weights *= connectivity_matrix
-        row_sums = boltzmann_weights.sum(axis=1, keepdims=True) + 1e-12
-        transition_matrix = boltzmann_weights / row_sums
-        return transition_matrix
+        potential = np.asarray(potential, dtype=float).reshape(-1)
+        connectivity = sp.csr_matrix(connectivity_matrix, dtype=float)
+        connectivity.sum_duplicates()
+        connectivity.eliminate_zeros()
+        connectivity.sort_indices()
+
+        rows = np.repeat(
+            np.arange(connectivity.shape[0]), np.diff(connectivity.indptr)
+        )
+        energy_diff = potential[connectivity.indices] - potential[rows]
+        weights = np.exp(-beta * energy_diff) * connectivity.data
+        row_sums = np.bincount(
+            rows, weights=weights, minlength=connectivity.shape[0]
+        )
+        normalized_weights = weights / (row_sums[rows] + 1e-12)
+
+        transition = sp.csr_matrix(
+            (normalized_weights, connectivity.indices.copy(), connectivity.indptr.copy()),
+            shape=connectivity.shape,
+        )
+        transition.eliminate_zeros()
+        return transition
 
     def set_adata(self, adata: "AnnData") -> None:
         """Set the AnnData object."""
@@ -557,9 +595,7 @@ class LSD:
                 "Run neighbors graph computation."
             )
         connectivity = adata.obsp["connectivities"]
-        if not isinstance(connectivity, np.ndarray):
-            connectivity = connectivity.toarray()
-        binary_connectivity = (connectivity > 0).astype(float)
+        binary_connectivity = (sp.csr_matrix(connectivity) > 0).astype(float).tocsr()
 
         transition_matrix = self.calculate_transition_probs(
             potential=potential.squeeze(-1).cpu().numpy(),
@@ -605,15 +641,19 @@ class LSD:
                 )
             n_trajectories = self.walk_config.num_walks
 
-        self.P = self.P.to(self.device)
-        walks = self._random_walks(n_trajectories)
-        self.P = self.P.cpu()
-        self.walks = walks.cpu()
+        random_state = getattr(self.walk_config, "random_state", 42)
+        self.P = sp.csr_matrix(self.P)
+        self.walks = random_walks_sparse(
+            self.P,
+            n_steps=self.path_len,
+            n_trajectories=n_trajectories,
+            random_state=random_state,
+        )
 
     def set_prior_transition(
         self,
         prior_time_key: Optional[str] = None,
-        prior_transition: Optional[np.ndarray] = None,
+        prior_transition: Optional[Union[np.ndarray, sp.spmatrix]] = None,
         random_state: int = 42,
     ) -> None:
         """Set the prior cell-cell transition matrix.
@@ -622,7 +662,7 @@ class LSD:
         ----------
         prior_time_key : str, optional
             Name of pseudotime key in adata.obs.
-        prior_transition : np.ndarray, optional
+        prior_transition : numpy.ndarray or scipy.sparse matrix, optional
             Precomputed prior transition matrix.
         random_state : int
             Random seed.
@@ -635,52 +675,53 @@ class LSD:
                     "'connectivities' matrix not found in adata.obsp. "
                     "Run neighbors graph computation (e.g. sc.pp.neighbors)."
                 )
-            mat = self.adata.obsp["connectivities"]
-            if not isinstance(mat, np.ndarray):
-                mat = mat.toarray()
-            return (mat > 0).astype(float)
+            mat = sp.csr_matrix(self.adata.obsp["connectivities"])
+            return (mat > 0).astype(float).tocsr()
 
         if prior_transition is not None:
-            if not isinstance(prior_transition, np.ndarray):
-                prior_transition = prior_transition.toarray()
-            if prior_transition.shape != (n_cells, n_cells):
+            transition = sp.csr_matrix(prior_transition, dtype=np.float32)
+            if transition.shape != (n_cells, n_cells):
                 raise ValueError(
-                    f"Shape mismatch: prior_transition has shape {prior_transition.shape}, "
+                    f"Shape mismatch: prior_transition has shape {transition.shape}, "
                     f"but expected ({n_cells}, {n_cells}) from adata."
                 )
-            self.P = torch.from_numpy(prior_transition).float()
+            self.P = transition
             print("[LSD] Prior transition matrix set from user input.")
             return
 
+        if prior_time_key is not None and prior_time_key not in self.adata.obs:
+            raise KeyError(
+                f"prior_time_key={prior_time_key!r} was not found in adata.obs. "
+                "Add the pseudotime column or pass prior_transition instead."
+            )
+
         if self.phylogeny is not None:
             A = self._create_phylogeny_matrix()
-            if not isinstance(A, np.ndarray):
-                A = A.toarray()
             connectivity = _get_connectivity_matrix()
-            A *= connectivity
+            A = A.multiply(connectivity).tocsr()
 
             self.adata.obsp["phylogeny_matrix"] = A
-            row_sums = A.sum(axis=1)
+            row_sums = np.asarray(A.sum(axis=1)).ravel()
             valid_cells = row_sums > 0
             if len(self.adata[~valid_cells]) != 0:
                 print(
                     f"[LSD] Removing {np.sum(~valid_cells)} cells with no transitions:"
                 )
-            self.adata = self.adata[valid_cells]
+            self.adata = self.adata[valid_cells].copy()
             if prior_time_key is not None:
                 P = self._get_transition_from_pseudotime(
-                    prior_time_key, self.adata.obsp["phylogeny_matrix"].toarray()
+                    prior_time_key, self.adata.obsp["phylogeny_matrix"]
                 )
                 print("[LSD] Prior transition matrix set from phylogeny and pseudotime.")
             else:
                 raise KeyError("Run the function get_prior_transition first")
-            self.P = torch.from_numpy(P).float()
+            self.P = P.astype(np.float32)
             return
 
         if prior_time_key is not None:
             connectivity = _get_connectivity_matrix()
             P = self._get_transition_from_pseudotime(prior_time_key, connectivity)
-            self.P = torch.from_numpy(P).float()
+            self.P = P.astype(np.float32)
             print("[LSD] Prior transition matrix set from pseudotime and connectivities.")
             return
 
@@ -692,8 +733,8 @@ class LSD:
     def _get_transition_from_pseudotime(
         self,
         time_key: str,
-        connectivity: np.ndarray,
-    ) -> np.ndarray:
+        connectivity: Union[np.ndarray, sp.spmatrix],
+    ) -> sp.csr_matrix:
         """Compute transition matrix from pseudotime."""
         potential = -self.adata.obs[time_key].values
         P = self.calculate_transition_probs(potential, connectivity, beta=50)
@@ -726,28 +767,11 @@ class LSD:
 
     def _create_phylogeny_matrix(self) -> sp.csr_matrix:
         """Create phylogeny-based adjacency matrix."""
-        clusters = self.adata.obs[self.cluster_key].unique().tolist()
-        cell_to_cluster = dict(
-            zip(self.adata.obs_names, self.adata.obs[self.cluster_key])
+        return create_sparse_phylogeny_matrix(
+            self.adata,
+            self.phylogeny,
+            self.cluster_key,
         )
-
-        all_descendants = {}
-        for cluster in clusters:
-            all_descendants[cluster] = self._get_all_descendants(cluster)
-
-        n_cells = self.adata.shape[0]
-        phylo_matrix = np.zeros((n_cells, n_cells))
-
-        for i, cell_i in enumerate(self.adata.obs_names):
-            cluster_i = cell_to_cluster[cell_i]
-            for j, cell_j in enumerate(self.adata.obs_names):
-                cluster_j = cell_to_cluster[cell_j]
-                if cluster_i == cluster_j:
-                    phylo_matrix[i, j] = 1
-                elif cluster_j in all_descendants.get(cluster_i, set()):
-                    phylo_matrix[i, j] = 1
-
-        return sp.csr_matrix(phylo_matrix)
 
     def ode_solve(
         self,
