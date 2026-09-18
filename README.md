@@ -163,7 +163,7 @@ Input AnnData should contain:
 
 ## Method
 
-LSD is motivated by an overdamped Langevin description of cell-state dynamics, but its current implementation propagates the mean cell state through a deterministic gradient flow,
+LSD propagates the mean cell state through a deterministic gradient flow,
 
 $$
 \frac{dm_t}{dt} = -\nabla V(m_t),
@@ -171,7 +171,7 @@ $$
 z_t \sim \mathcal{N}(m_t, C_t),
 $$
 
-where $V$ is the learned Waddington potential, parameterized by a neural network, and $-\nabla V$ defines the neural ODE. The covariance $C_t$ is not dynamically propagated from a diffusion process; instead, local uncertainty is inferred by the variational encoder.
+where $V$ is the learned Waddington potential, parameterized by a neural network, and $-\nabla V$ defines the neural ODE. The covariance $C_t$ is inferred by the variational encoder.
 
 LSD jointly learns the latent cell-state representation, differentiation-state representation, Waddington potential, and generative decoder using variational inference. Gene-expression counts are reconstructed with a zero-inflated negative binomial likelihood.
 
