@@ -15,7 +15,7 @@ and citation information.
 
 ## Overview
 
-LSD reinterprets Waddington's epigenetic landscape as an energy landscape in a learned latent cell state space. Cell differentiation is modeled as a stochastic dynamical system governed by a gradient flow down this potential surface, combined with noise representing gene expression variability.
+LSD reinterprets Waddington's epigenetic landscape as an energy landscape in a learned latent cell state space. Cell differentiation is modeled as a  dynamical system governed by a gradient flow down this potential surface, combined with local noise representing gene expression variability.
 
 The model jointly infers:
 
