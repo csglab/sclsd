@@ -5,7 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/sclsd)](https://pypi.org/project/sclsd/)
 
 
-**sclsd** implements Latent Space Dynamics (LSD), a thermodynamic framework for modeling cell differentiation from single-cell RNA sequencing data.
+**sclsd** implements Latent Space Dynamics (LSD), a thermodynamic inspired framework for modeling cell differentiation from single-cell RNA sequencing data.
 
 Notebooks for reproducing manuscript figures and analyses are available at [csglab/sclsd-manuscript](https://github.com/csglab/sclsd-manuscript).
 
