@@ -181,7 +181,7 @@ LSD jointly learns the latent cell-state representation, differentiation-state r
 Dataset-specific training and postprocessing notebooks are available in the
 [`sclsd-manuscript`](https://github.com/csglab/sclsd-manuscript) repository.
 The preprocessed datasets used by those notebooks are available from
-[Zenodo record 18331587](https://zenodo.org/records/18331587).
+[Zenodo record 23606304](https://zenodo.org/records/23606304).
 
 ## Citation
 
